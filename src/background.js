@@ -69,10 +69,11 @@ for (const option of options) {
 }
 Promise.all(jobs).then(() => {
 	messenger.menus.onClicked.addListener(async (info, tab) => {
-		if (options.includes(info.menuItemId)) {
-			messenger.mailTabs.update({ [info.menuItemId]: info.checked });
-		} else {
+		if (layouts.includes(info.menuItemId)) {
 			messenger.mailTabs.update({ layout: info.menuItemId });
+		}
+		else if (options.includes(info.menuItemId)) {
+			messenger.mailTabs.update({ [info.menuItemId]: info.checked });
 		}
 	});
 
