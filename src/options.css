@@ -1,5 +1,5 @@
 #viewSelectors {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
 }
