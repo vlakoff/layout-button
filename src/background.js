@@ -43,9 +43,23 @@ messenger.action.onClicked.addListener(async (t, e) => {
 	}
 });
 
+// Promisifies messenger.menus.create(), which — unlike the rest of the
+// Thunderbird WebExtension API — is not natively promise-based and instead
+// uses a classic callback.
+function createMenuItem(createProperties) {
+	return new Promise(resolve => {
+		messenger.menus.create(createProperties, () => {
+			if (messenger.runtime.lastError) {
+				console.log("error creating menu item:", createProperties.id, messenger.runtime.lastError);
+			}
+			resolve();
+		});
+	});
+}
+
 const jobs = [];
 for (const layout of layouts) {
-	jobs.push(messenger.menus.create({
+	jobs.push(createMenuItem({
 		id: layout,
 		title: messenger.i18n.getMessage(layout),
 		type: "radio",
@@ -53,13 +67,13 @@ for (const layout of layouts) {
 		contexts: ["action"],
 	}));
 }
-jobs.push(messenger.menus.create({
+jobs.push(createMenuItem({
 	id: "sep1",
 	type: "separator",
 	contexts: ["action"],
 }));
 for (const option of options) {
-	jobs.push(messenger.menus.create({
+	jobs.push(createMenuItem({
 		id: option,
 		title: messenger.i18n.getMessage(option),
 		type: "checkbox",
