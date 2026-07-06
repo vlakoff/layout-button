@@ -41,13 +41,10 @@ for (const option of options) {
 }
 Promise.all(jobs).then(() => {
 	messenger.menus.onClicked.addListener(async (info, tab) => {
-		const [currentTab] = await messenger.mailTabs.query({ active: true, currentWindow: true });
-		if (currentTab) {
-			if (options.includes(info.menuItemId)) {
-				messenger.mailTabs.update({ [info.menuItemId]: !currentTab[info.menuItemId] });
-			} else {
-				messenger.mailTabs.update({ layout: info.menuItemId });
-			}
+		if (options.includes(info.menuItemId)) {
+			messenger.mailTabs.update({ [info.menuItemId]: info.checked });
+		} else {
+			messenger.mailTabs.update({ layout: info.menuItemId });
 		}
 	});
 });
