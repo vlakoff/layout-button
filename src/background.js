@@ -43,62 +43,46 @@ messenger.action.onClicked.addListener(async (t, e) => {
 	}
 });
 
-// Promisifies messenger.menus.create(), which — unlike the rest of the
-// Thunderbird WebExtension API — is not natively promise-based and instead
-// uses a classic callback.
-function createMenuItem(createProperties) {
-	return new Promise(resolve => {
-		messenger.menus.create(createProperties, () => {
-			if (messenger.runtime.lastError) {
-				console.log("error creating menu item:", createProperties.id, messenger.runtime.lastError);
-			}
-			resolve();
-		});
-	});
-}
-
-const jobs = [];
 for (const layout of layouts) {
-	jobs.push(createMenuItem({
+	messenger.menus.create({
 		id: layout,
 		title: messenger.i18n.getMessage(layout),
 		type: "radio",
 		checked: false,
 		contexts: ["action"],
-	}));
+	});
 }
-jobs.push(createMenuItem({
+messenger.menus.create({
 	id: "sep1",
 	type: "separator",
 	contexts: ["action"],
-}));
+});
 for (const option of options) {
-	jobs.push(createMenuItem({
+	messenger.menus.create({
 		id: option,
 		title: messenger.i18n.getMessage(option),
 		type: "checkbox",
 		checked: false,
 		contexts: ["action"],
-	}));
+	});
 }
-Promise.all(jobs).then(() => {
-	messenger.menus.onClicked.addListener(async (info, tab) => {
-		if (layouts.includes(info.menuItemId)) {
-			messenger.mailTabs.update({ layout: info.menuItemId });
-		}
-		else if (options.includes(info.menuItemId)) {
-			messenger.mailTabs.update({ [info.menuItemId]: info.checked });
-		}
-	});
 
-	// Update the checkmarks right before the menu is shown,
-	// to reflect the currently active layout and visible panes.
-	messenger.menus.onShown.addListener(async (info, tab) => {
-		await updateMenuState();
+messenger.menus.onClicked.addListener(async (info, tab) => {
+	if (layouts.includes(info.menuItemId)) {
+		messenger.mailTabs.update({ layout: info.menuItemId });
+	}
+	else if (options.includes(info.menuItemId)) {
+		messenger.mailTabs.update({ [info.menuItemId]: info.checked });
+	}
+});
 
-		// menus.update() only changes the internal state of the menu items;
-		// the menu is already being rendered by the time onShown fires, so
-		// refresh() is needed to make Thunderbird redraw it with the new checkmarks.
-		messenger.menus.refresh();
-	});
+// Update the checkmarks right before the menu is shown,
+// to reflect the currently active layout and visible panes.
+messenger.menus.onShown.addListener(async (info, tab) => {
+	await updateMenuState();
+
+	// menus.update() only changes the internal state of the menu items;
+	// the menu is already being rendered by the time onShown fires, so
+	// refresh() is needed to make Thunderbird redraw it with the new checkmarks.
+	messenger.menus.refresh();
 });
