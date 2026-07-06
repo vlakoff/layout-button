@@ -3,9 +3,9 @@ const options = ["folderPaneVisible", "messagePaneVisible"];
 
 messenger.action.onClicked.addListener(async (t, e) => {
 	try {
-		let { skip } = (await messenger.storage.local.get({ skip: "none" }));
-		let filteredLayouts = layouts.filter(layout => layout !== skip);
-		let [currentTab] = await messenger.mailTabs.query({ active: true, currentWindow: true });
+		const { skip } = (await messenger.storage.local.get({ skip: "none" }));
+		const filteredLayouts = layouts.filter(layout => layout !== skip);
+		const [currentTab] = await messenger.mailTabs.query({ active: true, currentWindow: true });
 		if (currentTab) {
 			let index = filteredLayouts.findIndex(v => v === currentTab.layout);
 			index++;
@@ -41,7 +41,7 @@ for (const option of options) {
 }
 Promise.all(jobs).then(() => {
 	messenger.menus.onClicked.addListener(async (info, tab) => {
-		let [currentTab] = await messenger.mailTabs.query({ active: true, currentWindow: true });
+		const [currentTab] = await messenger.mailTabs.query({ active: true, currentWindow: true });
 		if (currentTab) {
 			if (options.includes(info.menuItemId)) {
 				messenger.mailTabs.update({ [info.menuItemId]: !currentTab[info.menuItemId] });
