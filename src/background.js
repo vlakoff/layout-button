@@ -67,15 +67,6 @@ for (const option of options) {
 	});
 }
 
-messenger.menus.onClicked.addListener(async (info, tab) => {
-	if (layouts.includes(info.menuItemId)) {
-		messenger.mailTabs.update({ layout: info.menuItemId });
-	}
-	else if (options.includes(info.menuItemId)) {
-		messenger.mailTabs.update({ [info.menuItemId]: info.checked });
-	}
-});
-
 // Update the checkmarks right before the menu is shown,
 // to reflect the currently active layout and visible panes.
 messenger.menus.onShown.addListener(async (info, tab) => {
@@ -85,4 +76,13 @@ messenger.menus.onShown.addListener(async (info, tab) => {
 	// the menu is already being rendered by the time onShown fires, so
 	// refresh() is needed to make Thunderbird redraw it with the new checkmarks.
 	messenger.menus.refresh();
+});
+
+messenger.menus.onClicked.addListener(async (info, tab) => {
+	if (layouts.includes(info.menuItemId)) {
+		messenger.mailTabs.update({ layout: info.menuItemId });
+	}
+	else if (options.includes(info.menuItemId)) {
+		messenger.mailTabs.update({ [info.menuItemId]: info.checked });
+	}
 });
