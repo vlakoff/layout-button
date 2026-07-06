@@ -1,0 +1,73 @@
+privacy.reduceTimerPrecision
+default : true ; passer à false le temps de faire les benchmarks
+
+privacy.resistFingerprinting
+default : false ; laisser comme ça
+
+
+
+messenger.menus.onShown --> sequential updates : 3.100 ms
+messenger.menus.onShown --> parallel updates : 2.080 ms
+messenger.menus.onShown --> sequential updates : 2.440 ms
+messenger.menus.onShown --> parallel updates : 2.500 ms
+messenger.menus.onShown --> sequential updates : 4.440 ms
+messenger.menus.onShown --> parallel updates : 1.480 ms
+messenger.menus.onShown --> sequential updates : 2.240 ms
+messenger.menus.onShown --> parallel updates : 1.260 ms
+messenger.menus.onShown --> sequential updates : 2.560 ms
+messenger.menus.onShown --> parallel updates : 1.880 ms
+messenger.menus.onShown --> sequential updates : 2.080 ms
+messenger.menus.onShown --> parallel updates : 1.240 ms
+messenger.menus.onShown --> sequential updates : 4.540 ms
+messenger.menus.onShown --> parallel updates : 1.540 ms
+messenger.menus.onShown --> sequential updates : 4.400 ms
+messenger.menus.onShown --> parallel updates : 1.520 ms
+messenger.menus.onShown --> sequential updates : 3.080 ms
+messenger.menus.onShown --> parallel updates : 1.720 ms
+messenger.menus.onShown --> sequential updates : 2.020 ms
+messenger.menus.onShown --> parallel updates : 1.200 ms
+messenger.menus.onShown --> sequential updates : 4.180 ms
+messenger.menus.onShown --> parallel updates : 1.480 ms
+messenger.menus.onClicked --> messenger.mailTabs.query : 0.720 ms
+!currentTab[info.menuItemId] false
+info.checked false
+messenger.menus.onClicked --> !currentTab[info.menuItemId] : 0.000 ms
+messenger.menus.onClicked --> info.checked : 0.000 ms
+messenger.menus.onShown --> sequential updates : 2.640 ms
+messenger.menus.onShown --> parallel updates : 1.740 ms
+messenger.menus.onClicked --> messenger.mailTabs.query : 0.840 ms
+!currentTab[info.menuItemId] true
+info.checked true
+messenger.menus.onClicked --> !currentTab[info.menuItemId] : 0.000 ms
+messenger.menus.onClicked --> info.checked : 0.000 ms
+messenger.menus.onShown --> sequential updates : 3.180 ms
+messenger.menus.onShown --> parallel updates : 1.620 ms
+messenger.menus.onClicked --> messenger.mailTabs.query : 0.740 ms
+!currentTab[info.menuItemId] false
+info.checked false
+messenger.menus.onClicked --> !currentTab[info.menuItemId] : 0.000 ms
+messenger.menus.onClicked --> info.checked : 0.000 ms
+messenger.menus.onShown --> sequential updates : 2.080 ms
+messenger.menus.onShown --> parallel updates : 1.520 ms
+messenger.menus.onClicked --> messenger.mailTabs.query : 0.780 ms
+!currentTab[info.menuItemId] true
+info.checked true
+messenger.menus.onClicked --> !currentTab[info.menuItemId] : 0.000 ms
+messenger.menus.onClicked --> info.checked : 0.000 ms
+messenger.menus.onShown --> sequential updates : 2.260 ms
+messenger.menus.onShown --> parallel updates : 1.740 ms
+messenger.menus.onClicked --> messenger.mailTabs.query : 0.720 ms
+messenger.menus.onShown --> sequential updates : 4.380 ms
+messenger.menus.onShown --> parallel updates : 1.800 ms
+messenger.menus.onClicked --> messenger.mailTabs.query : 0.920 ms
+!currentTab[info.menuItemId] false
+info.checked false
+messenger.menus.onClicked --> !currentTab[info.menuItemId] : 0.000 ms
+messenger.menus.onClicked --> info.checked : 0.000 ms
+messenger.menus.onShown --> sequential updates : 2.420 ms
+messenger.menus.onShown --> parallel updates : 1.660 ms
+messenger.menus.onClicked --> messenger.mailTabs.query : 0.960 ms
+!currentTab[info.menuItemId] false
+info.checked false
+messenger.menus.onClicked --> !currentTab[info.menuItemId] : 0.000 ms
+messenger.menus.onClicked --> info.checked : 0.000 ms
