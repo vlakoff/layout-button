@@ -22,8 +22,15 @@ async function updateMenuState() {
 
 messenger.action.onClicked.addListener(async (t, e) => {
 	try {
-		const { skip } = (await messenger.storage.local.get({ skip: "none" }));
-		const filteredLayouts = layouts.filter(layout => layout !== skip);
+		const { included } = (await messenger.storage.local.get({ included: {} }));
+		const filteredLayouts = layouts.filter(layout => {
+			// A layout missing from storage is included by default.
+			return included[layout] ?? true;
+		});
+		if (filteredLayouts.length === 0) {
+			// Nothing is selected: the button does nothing.
+			return;
+		}
 		const [currentTab] = await messenger.mailTabs.query({ active: true, currentWindow: true });
 		if (currentTab) {
 			let index = filteredLayouts.findIndex(v => v === currentTab.layout);
