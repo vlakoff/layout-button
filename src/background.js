@@ -27,9 +27,15 @@ messenger.action.onClicked.addListener(async (t, e) => {
 		const [currentTab] = await messenger.mailTabs.query({ active: true, currentWindow: true });
 		if (currentTab) {
 			let index = filteredLayouts.findIndex(v => v === currentTab.layout);
-			index++;
-			if (index >= filteredLayouts.length) {
+			if (index === -1) {
+				// If the current layout is not found in the filtered list,
+				// fallback to the first available layout.
 				index = 0;
+			} else {
+				index++;
+				if (index >= filteredLayouts.length) {
+					index = 0;
+				}
 			}
 			await messenger.mailTabs.update({ layout: filteredLayouts[index] });
 
