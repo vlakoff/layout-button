@@ -1,0 +1,49 @@
+{
+	"name": "__MSG_extensionName__",
+	"description": "__MSG_extensionDescription__",
+	"version": "4.1",
+	"author": "TurtleTec",
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "layoutbutton@turtletec.ie",
+			"strict_min_version": "128.0"
+		}
+	},
+	"icons": {
+		"16": "icon-light.svg",
+		"32": "icon-light.svg",
+		"64": "icon-light.svg"
+	},
+	"action": {
+		"default_title": "Layout",
+		"theme_icons": [
+			{
+				"dark": "icon-light.svg",
+				"light": "icon-dark.svg",
+				"size": 16
+			}
+		]
+	},
+	"background": {
+		"scripts": ["background.js"]
+	},
+	"options_ui": {
+		"page": "options.html"
+	},
+	"experiment_apis": {
+		"bbDetect": {
+			"schema": "api/bbDetect.json",
+			"parent": {
+				"scopes": ["addon_parent"],
+				"script": "api/bbDetect.js",
+				"paths": [["bbDetect"]]
+			}
+		}
+	},
+	"permissions": [
+		"storage",
+		"menus"
+	],
+	"default_locale": "en",
+	"manifest_version": 3
+}

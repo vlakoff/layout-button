@@ -1,0 +1,14 @@
+#viewSelectors {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+}
+
+#betterbirdOnlyOption {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+	margin-top: 0.8rem;
+	padding-top: 0.8rem;
+	border-top: 1px solid #ccc;
+}

@@ -1,0 +1,15 @@
+> question à part : une extension qui utilise une telle "Experiment" low level, ça peut quand même être publié sur le add-ons store ?
+
+Oui, c'est tout à fait autorisé — les Experiments sont un mécanisme officiellement supporté par Thunderbird, pas un hack toléré. Mais il y a des implications concrètes sur le processus de publication sur addons.thunderbird.net (ATN).
+
+Ce qui change par rapport à une extension "normale" :
+
+* Revue manuelle obligatoire : contrairement à certaines soumissions qui peuvent être approuvées automatiquement et disponibles au public peu après la soumission, l'usage d'une Experiment API fait quasi-systématiquement basculer ton extension dans la file de revue manuelle par un humain — pas d'auto-approbation instantanée.
+
+* Un motif de rejet spécifique existe et te concerne directement : la politique liste explicitement comme cause de rejet le fait qu'un add-on utilise une Experiment alors que la même fonctionnalité est disponible via une WebExtension API native. Concrètement : si un reviewer découvre qu'il existe une API standard (par exemple runtime.getBrowserInfo(), héritée de Firefox) qui permettrait d'obtenir le nom de l'appli sans passer par AppConstants, il peut rejeter ta soumission. Dans notre cas précis, c'est probablement défendable puisque MOZ_APP_DISPLAYNAME_DO_NOT_USE existe justement parce que les API publiques (comme appinfo.name) renvoient "Thunderbird" même sous Betterbird pour des raisons de compatibilité — mais je te recommande d'expliquer ce point explicitement dans le champ "Notes to Reviewers" au moment de la soumission, pour couper court à la question.
+
+* Transparence renforcée exigée : comme les Experiments ont un accès complet aux fonctions internes de Thunderbird et peuvent contourner entièrement le système de permissions, l'utilisateur voit un prompt d'installation différent ("accès complet et sans restriction à Thunderbird et à votre ordinateur") au lieu du détail permission par permission — ça doit être cohérent avec la description de ton extension pour ne pas surprendre l'utilisateur.
+
+* Le code doit rester lisible pour le reviewer : la politique précise que le code des add-ons doit être écrit de façon à être compréhensible et vérifiable ; les reviewers peuvent demander un refactoring si ce n'est pas le cas. Dans ton cas, le fichier api/bbDetect.js est minimaliste (une seule fonction, un seul retour de constante) donc ça ne devrait poser aucun souci de revue.
+
+En résumé pour toi : publiable sans problème, ton usage est minimal et justifiable (lecture d'une seule constante, aucune donnée envoyée nulle part), mais prévois une revue manuelle (donc un délai, contrairement à une soumission 100% API standard) et pense à documenter pourquoi l'Experiment est nécessaire plutôt qu'une API existante, dans les notes au reviewer.

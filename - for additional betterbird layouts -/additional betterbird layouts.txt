@@ -1,0 +1,33 @@
+https://github.com/Betterbird/thunderbird-patches/issues/192
+
+AppConstants.MOZ_APP_DISPLAYNAME_DO_NOT_USE
+"Betterbird"
+
+AppConstants.MOZ_APP_VERSION_DISPLAY
+pas trop sûr des valeurs possibles
+actuellement j'ai : "128.14.0esr-bb32"
+mais je vois venir des trucs genre : "153.0b4-bb3 build 2" (suffixe "build")
+
+donc, chercher : /-bb\d+/
+
+edit : j'ai testé exprès la version "Betterbird 153 beta build 2 (153.0b4-bb3, 5 July 2026)"
+AppConstants.MOZ_APP_VERSION_DISPLAY : "153.0b4-bb3"
+donc, on peut chercher plus précisément : /-bb\d+$/ (end anchor)
+
+
+
+https://github.com/Betterbird/thunderbird-patches/blob/2ed45e97ee30fc6045d3b6b40336852be492e8e5/128/features/26-feature-more-layouts.patch
+["standard", "wide", "vertical", "widethread", "stacked"]
+Classic View / Wide View / Vertical View / Wide Thread View / Stacked View
+
+https://github.com/Betterbird/thunderbird-patches/blob/2ed45e97ee30fc6045d3b6b40336852be492e8e5/140/features/26-feature-more-layouts.patch
+["standard", "wide", "vertical", "widethread", "stacked", "horizontal"]
+Classic View / Wide View / Vertical View / Wide Thread View / Stacked View / Horizontal View
+
+
+les deux layouts "Wide Thread" et "Stacked" ont été introduits dans la version 115,
+et de toute façon l'extension n'est compatible qu'avec Thunderbird 128 minimum
+donc, superflu de tester si version majeure >= 128, seul le test >= 140 pour ajouter encore en plus "Horizontal View" est utile
+
+
+TODO IMPORTANT : il faut aussi ajouter les noms dans "_locales > en > messages.json"

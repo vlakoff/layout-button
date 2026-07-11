@@ -1,0 +1,13 @@
+[
+  {
+    "namespace": "bbDetect",
+    "functions": [
+      {
+        "name": "getVersionDisplay",
+        "type": "function",
+        "async": true,
+        "parameters": []
+      }
+    ]
+  }
+]
